@@ -19,13 +19,13 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Premium guided motorcycle rides from Kuala Lumpur to Betong. Small crews, safety-first, no tour-bus vibes. Limited slots.",
+          "Premium guided motorcycle rides from Kuala Lumpur into Southern Thailand. Betong is our signature crossing — small crews, safety-first, no tour-bus vibes. Limited slots.",
       },
       { property: "og:title", content: "Teman — Ride Together. Explore Further." },
       {
         property: "og:description",
         content:
-          "Guided borderless motorcycle rides from KL to Betong. Brotherhood. Safety. Hidden roads.",
+          "Guided motorcycle rides from KL into Southern Thailand. We started with Betong — the place we know best. Brotherhood. Safety. Hidden roads.",
       },
     ],
   }),

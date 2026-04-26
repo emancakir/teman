@@ -37,15 +37,24 @@ export function UpcomingRides() {
   const [selectedRide, setSelectedRide] = useState<Ride | null>(null);
 
   return (
-    <section
-      id="rides"
-      className="scroll-mt-20 bg-background py-28 md:py-40"
-    >
-      <div className="mx-auto max-w-5xl px-6 md:px-10">
+    <section id="rides" className="scroll-mt-20 relative overflow-hidden py-28 md:py-40" style={{ background: "oklch(0.18 0.04 155)" }}>
+      {/* Noise texture */}
+      <div className="absolute inset-0 bg-noise opacity-50 pointer-events-none" />
+
+      {/* Top accent rule */}
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-accent/40 to-transparent" />
+
+      {/* Ghost section number */}
+      <span className="absolute right-4 top-8 font-display leading-none text-foreground/[0.035] select-none pointer-events-none" style={{ fontSize: "clamp(6rem, 18vw, 16rem)" }}>
+        03
+      </span>
+
+      <div className="relative mx-auto max-w-5xl px-6 md:px-10">
         <div className="mb-20 max-w-2xl">
-          <p className="mb-6 text-[11px] uppercase tracking-[0.5em] text-accent">
-            Upcoming Rides
-          </p>
+          <div className="flex items-center gap-4 mb-6">
+            <span className="h-px w-8 bg-accent/60 shrink-0" />
+            <p className="text-[11px] uppercase tracking-[0.5em] text-accent">Upcoming Rides</p>
+          </div>
           <h2 className="font-display text-4xl leading-[1.05] text-balance text-foreground sm:text-5xl md:text-6xl">
             Limited slots. <span className="italic">Small crews only.</span>
           </h2>
@@ -63,19 +72,13 @@ export function UpcomingRides() {
                   <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">
                     {ride.duration} · KL → Betong
                   </p>
-                  <h3 className="mt-2 font-display text-3xl text-foreground md:text-4xl">
-                    {ride.dates}
-                  </h3>
+                  <h3 className="mt-2 font-display text-3xl text-foreground md:text-4xl">{ride.dates}</h3>
                 </div>
 
                 <div className="col-span-7 md:col-span-5">
-                  <p className="text-sm italic text-muted-foreground md:text-base">
-                    {ride.tagline}
-                  </p>
+                  <p className="text-sm italic text-muted-foreground md:text-base">{ride.tagline}</p>
                   <p className="mt-2 text-xs uppercase tracking-[0.25em] text-accent/90">
-                    {sold
-                      ? "Fully booked"
-                      : `${ride.slotsLeft} of ${ride.totalSlots} helmets left`}
+                    {sold ? "Fully booked" : `${ride.slotsLeft} of ${ride.totalSlots} helmets left`}
                   </p>
                 </div>
 
@@ -97,15 +100,14 @@ export function UpcomingRides() {
         </ul>
 
         <p className="mt-10 max-w-md text-sm italic text-muted-foreground">
-          Max 10 helmets per ride. We keep the crew small so the experience
-          stays personal.
+          Max 10 helmets per ride. We keep the crew small so the experience stays personal.
         </p>
       </div>
 
-      <BookingModal
-        ride={selectedRide}
-        onClose={() => setSelectedRide(null)}
-      />
+      <BookingModal ride={selectedRide} onClose={() => setSelectedRide(null)} />
+
+      {/* Bottom fade into darker section */}
+      <div className="absolute inset-x-0 bottom-0 h-32 pointer-events-none" style={{ background: "linear-gradient(to bottom, transparent, oklch(0.12 0.022 155))" }} />
     </section>
   );
 }

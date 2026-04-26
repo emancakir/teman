@@ -26,7 +26,8 @@ export function Footer() {
             </h2>
             <p className="mt-6 max-w-md text-base text-muted-foreground">
               Built by riders, for riders. A quiet circle for those who'd rather
-              cross borders than sit in traffic.
+              cross into Southern Thailand than sit in traffic. We started with
+              Betong — the place we know best — and we're not stopping there.
             </p>
           </div>
 

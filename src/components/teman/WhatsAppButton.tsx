@@ -1,10 +1,10 @@
 import { MessageCircle } from "lucide-react";
 
 const message = encodeURIComponent(
-  "Hi Teman, I'm interested in the Betong ride. Can you share more details?",
+  "Hi Teman, I'm interested in joining a ride into Southern Thailand. Can you share more details?",
 );
 // Replace this number with the real one when available
-const WA_LINK = `https://wa.me/?text=${message}`;
+const WA_LINK = `https://wa.me/60199009674?text=${message}`;
 
 export function WhatsAppButton() {
   return (

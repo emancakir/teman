@@ -35,7 +35,7 @@ export function Hero() {
       <div className="relative z-10 mx-auto flex min-h-screen max-w-6xl flex-col justify-center px-6 pb-24 pt-32 md:px-10">
         <div className="max-w-3xl">
           <p className="mb-8 text-[11px] font-normal uppercase tracking-[0.5em] text-bone/70">
-            Kuala Lumpur — Betong
+            Kuala Lumpur — Southern Thailand
           </p>
           <h1 className="font-display text-[3.25rem] leading-[1] text-bone sm:text-7xl md:text-8xl lg:text-[8.5rem]">
             Ride Together.
@@ -43,7 +43,7 @@ export function Hero() {
             <span className="italic text-bone/90">Explore Further.</span>
           </h1>
           <p className="mt-10 max-w-md text-balance text-base text-bone/70 md:text-lg">
-            Small crews. Guided rides from KL to Betong.
+            Small crews. Guided rides from KL deep into Southern Thailand.
           </p>
 
           <div className="mt-12 flex flex-col gap-3 sm:flex-row sm:gap-5">

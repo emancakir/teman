@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
+import { useForm, ValidationError } from "@formspree/react";
 import {
   Dialog,
   DialogContent,
@@ -17,7 +18,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { toast } from "sonner";
+import { CheckCircle } from "lucide-react";
 
 export type Ride = {
   id: string;
@@ -34,169 +35,109 @@ interface Props {
   onClose: () => void;
 }
 
-const initialForm = {
-  name: "",
-  email: "",
-  whatsapp: "",
-  bike: "",
-  experience: "",
-  agree: false,
-};
-
 export function BookingModal({ ride, onClose }: Props) {
-  const [form, setForm] = useState(initialForm);
-  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [state, handleSubmit, reset] = useForm("mgorbwgn");
 
+  // Reset form state when modal closes
   useEffect(() => {
-    if (ride) {
-      setForm(initialForm);
-      setErrors({});
-    }
-  }, [ride]);
-
-  const validate = () => {
-    const e: Record<string, string> = {};
-    if (!form.name.trim()) e.name = "Required";
-    if (!form.email.trim() || !form.email.includes("@"))
-      e.email = "Valid email required";
-    if (!form.whatsapp.trim()) e.whatsapp = "Required";
-    if (!form.bike.trim()) e.bike = "Required";
-    if (!form.experience) e.experience = "Required";
-    if (!form.agree) e.agree = "You must accept the brotherhood agreement";
-    setErrors(e);
-    return Object.keys(e).length === 0;
-  };
-
-  const onSubmit = (ev: React.FormEvent) => {
-    ev.preventDefault();
-    if (!ride) return;
-    if (!validate()) return;
-
-    const subject = `[Teman Enquiry] - ${ride.name} - ${form.name}`;
-    const body = `New Ride Enquiry
------------------
-Name: ${form.name}
-Email: ${form.email}
-WhatsApp: ${form.whatsapp}
-Motorcycle: ${form.bike}
-Experience: ${form.experience}
-Selected Ride: ${ride.name} (${ride.dates})
-Slots Requested: 1
-Agreement Accepted: Yes
-
-Please contact rider to confirm availability.`;
-
-    const mailto = `mailto:temaninfo@pphgroup.com?subject=${encodeURIComponent(
-      subject,
-    )}&body=${encodeURIComponent(body)}`;
-
-    window.location.href = mailto;
-    toast.success("Check your email client to send.", {
-      description: "We'll reply within 12 hours. Ride safe.",
-    });
-    onClose();
-  };
+    if (!ride) reset();
+  }, [ride, reset]);
 
   return (
     <Dialog open={!!ride} onOpenChange={(o) => !o && onClose()}>
       <DialogContent className="max-h-[90vh] overflow-y-auto border-border/60 bg-background sm:max-w-md">
-        <DialogHeader className="space-y-3">
-          <p className="text-[11px] uppercase tracking-[0.4em] text-accent">
-            Secure your spot
-          </p>
-          <DialogTitle className="font-display text-3xl font-normal tracking-tight text-foreground">
-            {ride ? ride.dates : ""}
-          </DialogTitle>
-          <DialogDescription className="text-sm text-muted-foreground">
-            No payment required. We'll reply within 12 hours.
-          </DialogDescription>
-        </DialogHeader>
 
-        <form onSubmit={onSubmit} className="mt-4 space-y-5" noValidate>
-          <Field
-            id="name"
-            label="Full name"
-            value={form.name}
-            error={errors.name}
-            onChange={(v) => setForm({ ...form, name: v })}
-          />
-          <Field
-            id="email"
-            label="Email"
-            type="email"
-            value={form.email}
-            error={errors.email}
-            onChange={(v) => setForm({ ...form, email: v })}
-          />
-          <Field
-            id="whatsapp"
-            label="WhatsApp"
-            value={form.whatsapp}
-            error={errors.whatsapp}
-            onChange={(v) => setForm({ ...form, whatsapp: v })}
-            placeholder="+60 12 345 6789"
-          />
-          <Field
-            id="bike"
-            label="Motorcycle model"
-            value={form.bike}
-            error={errors.bike}
-            onChange={(v) => setForm({ ...form, bike: v })}
-            placeholder="e.g. Yamaha R15, 150cc"
-          />
+        {state.succeeded ? (
+          // ── Success state ──
+          <div className="flex flex-col items-center gap-5 py-8 text-center">
+            <div className="flex h-16 w-16 items-center justify-center rounded-full border border-accent/40 bg-card">
+              <CheckCircle className="h-7 w-7 text-accent" />
+            </div>
+            <div>
+              <h3 className="font-display text-2xl text-foreground">Enquiry sent.</h3>
+              <p className="mt-2 text-sm text-muted-foreground">
+                We'll get back to you within 12 hours via WhatsApp or email.
+                Ride safe.
+              </p>
+            </div>
+            <Button variant="outline" size="lg" onClick={onClose} className="mt-2">
+              Close
+            </Button>
+          </div>
+        ) : (
+          // ── Form state ──
+          <>
+            <DialogHeader className="space-y-3">
+              <p className="text-[11px] uppercase tracking-[0.4em] text-accent">
+                Secure your spot
+              </p>
+              <DialogTitle className="font-display text-3xl font-normal tracking-tight text-foreground">
+                {ride ? ride.dates : ""}
+              </DialogTitle>
+              <DialogDescription className="text-sm text-muted-foreground">
+                No payment required. We'll reply within 12 hours.
+              </DialogDescription>
+            </DialogHeader>
 
-          <div className="space-y-2">
-            <Label
-              htmlFor="experience"
-              className="text-[11px] uppercase tracking-[0.25em] text-muted-foreground"
-            >
-              Experience
-            </Label>
-            <Select
-              value={form.experience}
-              onValueChange={(v) => setForm({ ...form, experience: v })}
-            >
-              <SelectTrigger
-                id="experience"
-                className="h-11 border-border/60 bg-transparent"
+            <form onSubmit={handleSubmit} className="mt-4 space-y-5">
+              {/* Hidden fields so email shows ride context */}
+              <input type="hidden" name="ride_name" value={ride ? ride.name : ""} />
+              <input type="hidden" name="ride_dates" value={ride ? ride.dates : ""} />
+
+              <Field id="name" label="Full name" name="name" required />
+              <ValidationError field="name" errors={state.errors} className="text-xs text-destructive" />
+
+              <Field id="email" label="Email" name="email" type="email" required />
+              <ValidationError field="email" errors={state.errors} className="text-xs text-destructive" />
+
+              <Field id="whatsapp" label="WhatsApp" name="whatsapp" placeholder="+60 12 345 6789" required />
+              <ValidationError field="whatsapp" errors={state.errors} className="text-xs text-destructive" />
+
+              <Field id="bike" label="Motorcycle model" name="bike" placeholder="e.g. Yamaha R15, 150cc" required />
+              <ValidationError field="bike" errors={state.errors} className="text-xs text-destructive" />
+
+              <div className="space-y-2">
+                <Label htmlFor="experience" className="text-[11px] uppercase tracking-[0.25em] text-muted-foreground">
+                  Experience
+                </Label>
+                <Select name="experience">
+                  <SelectTrigger id="experience" className="h-11 border-border/60 bg-transparent">
+                    <SelectValue placeholder="Select your level" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="Intermediate">Intermediate</SelectItem>
+                    <SelectItem value="Advanced">Advanced</SelectItem>
+                    <SelectItem value="Veteran">Veteran</SelectItem>
+                  </SelectContent>
+                </Select>
+                <ValidationError field="experience" errors={state.errors} className="text-xs text-destructive" />
+              </div>
+
+              <div className="flex items-start gap-3 pt-2">
+                <Checkbox id="agree" name="agree" value="yes" className="mt-0.5" />
+                <Label htmlFor="agree" className="text-xs leading-relaxed text-muted-foreground">
+                  I understand routes are flexible based on group consensus,
+                  weather, and road conditions. I ride at my own risk and
+                  respect the lead rider's decisions.
+                </Label>
+              </div>
+
+              {/* Global form errors */}
+              <ValidationError errors={state.errors} className="text-xs text-destructive" />
+
+              <Button
+                type="submit"
+                variant="brand"
+                size="lg"
+                className="w-full"
+                disabled={state.submitting}
               >
-                <SelectValue placeholder="Select your level" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="Intermediate">Intermediate</SelectItem>
-                <SelectItem value="Advanced">Advanced</SelectItem>
-                <SelectItem value="Veteran">Veteran</SelectItem>
-              </SelectContent>
-            </Select>
-            {errors.experience && (
-              <p className="text-xs text-destructive">{errors.experience}</p>
-            )}
-          </div>
+                {state.submitting ? "Sending…" : "Send Enquiry"}
+              </Button>
+            </form>
+          </>
+        )}
 
-          <div className="flex items-start gap-3 pt-2">
-            <Checkbox
-              id="agree"
-              checked={form.agree}
-              onCheckedChange={(v) => setForm({ ...form, agree: v === true })}
-              className="mt-0.5"
-            />
-            <Label
-              htmlFor="agree"
-              className="text-xs leading-relaxed text-muted-foreground"
-            >
-              I understand routes are flexible based on group consensus,
-              weather, and road conditions. I ride at my own risk and respect
-              the lead rider's decisions.
-            </Label>
-          </div>
-          {errors.agree && (
-            <p className="text-xs text-destructive">{errors.agree}</p>
-          )}
-
-          <Button type="submit" variant="brand" size="lg" className="w-full">
-            Send Enquiry
-          </Button>
-        </form>
       </DialogContent>
     </Dialog>
   );
@@ -205,38 +146,32 @@ Please contact rider to confirm availability.`;
 function Field({
   id,
   label,
-  value,
-  error,
-  onChange,
+  name,
   type = "text",
   placeholder,
+  required,
 }: {
   id: string;
   label: string;
-  value: string;
-  error?: string;
-  onChange: (v: string) => void;
+  name: string;
   type?: string;
   placeholder?: string;
+  required?: boolean;
 }) {
   return (
     <div className="space-y-2">
-      <Label
-        htmlFor={id}
-        className="text-[11px] uppercase tracking-[0.25em] text-muted-foreground"
-      >
+      <Label htmlFor={id} className="text-[11px] uppercase tracking-[0.25em] text-muted-foreground">
         {label}
       </Label>
       <Input
         id={id}
+        name={name}
         type={type}
-        value={value}
         placeholder={placeholder}
-        onChange={(e) => onChange(e.target.value)}
+        required={required}
         maxLength={200}
         className="h-11 border-0 border-b border-border/60 bg-transparent px-0 rounded-none focus-visible:ring-0 focus-visible:border-accent"
       />
-      {error && <p className="text-xs text-destructive">{error}</p>}
     </div>
   );
 }

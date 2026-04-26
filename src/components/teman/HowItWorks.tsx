@@ -1,42 +1,38 @@
 import { Map, FileSignature, Video, Wrench, Bike } from "lucide-react";
 
 const steps = [
-  {
-    icon: Map,
-    title: "Choose Your Journey",
-    desc: "Pick a date that fits your calendar.",
-  },
-  {
-    icon: FileSignature,
-    title: "Secure Slot",
-    desc: "Agreement & deposit confirms your seat.",
-  },
-  {
-    icon: Video,
-    title: "Virtual Safety Briefing",
-    desc: "One week before — gear, route, border prep.",
-  },
+  { icon: Map, title: "Choose Your Journey", desc: "Pick a date that fits your calendar." },
+  { icon: FileSignature, title: "Secure Slot", desc: "Agreement & deposit confirms your seat." },
+  { icon: Video, title: "Virtual Safety Briefing", desc: "One week before — gear, route, border prep." },
   {
     icon: Wrench,
     title: "Bike Checking",
     desc: "One day before. Inspection at the meetup point.",
     note: "Teman reserves the right to cancel participation if the motorcycle is not in safe riding condition.",
   },
-  {
-    icon: Bike,
-    title: "Ride Day",
-    desc: "KL → Thailand. Led by TemanLead, supported by Teman Co-Lead.",
-  },
+  { icon: Bike, title: "Ride Day", desc: "KL → Thailand. Led by TemanLead, supported by Teman Co-Lead." },
 ];
 
 export function HowItWorks() {
   return (
-    <section className="relative bg-brand-deep py-28 md:py-40">
-      <div className="mx-auto max-w-6xl px-6 md:px-10">
+    <section className="relative overflow-hidden py-28 md:py-40" style={{ background: "oklch(0.12 0.022 155)" }}>
+      {/* Top accent rule */}
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-accent/30 to-transparent" />
+
+      {/* Noise texture */}
+      <div className="absolute inset-0 bg-noise opacity-25 pointer-events-none" />
+
+      {/* Ghost section number */}
+      <span className="absolute right-4 top-8 font-display leading-none text-foreground/[0.03] select-none pointer-events-none" style={{ fontSize: "clamp(6rem, 18vw, 16rem)" }}>
+        02
+      </span>
+
+      <div className="relative mx-auto max-w-6xl px-6 md:px-10">
         <div className="mb-20 max-w-2xl">
-          <p className="mb-6 text-[11px] uppercase tracking-[0.5em] text-accent">
-            The Flow
-          </p>
+          <div className="flex items-center gap-4 mb-6">
+            <span className="h-px w-8 bg-accent/60 shrink-0" />
+            <p className="text-[11px] uppercase tracking-[0.5em] text-accent">The Flow</p>
+          </div>
           <h2 className="font-display text-4xl leading-[1.05] text-balance text-foreground sm:text-5xl md:text-6xl">
             From signup to <span className="italic">throttle.</span>
           </h2>
@@ -45,29 +41,19 @@ export function HowItWorks() {
         {/* Desktop: horizontal flow */}
         <div className="hidden md:block">
           <div className="relative">
-            {/* connecting line */}
             <div className="absolute left-0 right-0 top-6 h-px bg-gradient-to-r from-transparent via-accent/40 to-transparent" />
-
             <ol className="relative grid grid-cols-5 gap-6">
               {steps.map((s, i) => (
                 <li key={s.title} className="relative">
                   <div className="flex flex-col items-start">
-                    <div className="relative z-10 flex h-12 w-12 items-center justify-center rounded-full border border-accent/40 bg-brand-deep text-accent">
+                    <div className="relative z-10 flex h-12 w-12 items-center justify-center rounded-full border border-accent/40 text-accent" style={{ background: "oklch(0.12 0.022 155)" }}>
                       <s.icon className="h-4 w-4" />
                     </div>
-                    <span className="mt-5 text-[10px] uppercase tracking-[0.35em] text-muted-foreground">
-                      Step 0{i + 1}
-                    </span>
-                    <h3 className="mt-2 font-display text-xl text-foreground">
-                      {s.title}
-                    </h3>
-                    <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                      {s.desc}
-                    </p>
+                    <span className="mt-5 text-[10px] uppercase tracking-[0.35em] text-muted-foreground">Step 0{i + 1}</span>
+                    <h3 className="mt-2 font-display text-xl text-foreground">{s.title}</h3>
+                    <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{s.desc}</p>
                     {s.note && (
-                      <p className="mt-4 border-l-2 border-accent/50 pl-3 text-xs italic leading-relaxed text-muted-foreground/90">
-                        {s.note}
-                      </p>
+                      <p className="mt-4 border-l-2 border-accent/50 pl-3 text-xs italic leading-relaxed text-muted-foreground/90">{s.note}</p>
                     )}
                   </div>
                 </li>
@@ -81,27 +67,22 @@ export function HowItWorks() {
           <div className="absolute bottom-4 left-6 top-4 w-px bg-gradient-to-b from-accent/40 via-accent/20 to-transparent" />
           {steps.map((s, i) => (
             <li key={s.title} className="relative pb-12 pl-16 last:pb-0">
-              <div className="absolute left-0 top-0 flex h-12 w-12 items-center justify-center rounded-full border border-accent/40 bg-brand-deep text-accent">
+              <div className="absolute left-0 top-0 flex h-12 w-12 items-center justify-center rounded-full border border-accent/40 text-accent" style={{ background: "oklch(0.12 0.022 155)" }}>
                 <s.icon className="h-4 w-4" />
               </div>
-              <span className="text-[10px] uppercase tracking-[0.35em] text-muted-foreground">
-                Step 0{i + 1}
-              </span>
-              <h3 className="mt-1 font-display text-2xl text-foreground">
-                {s.title}
-              </h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                {s.desc}
-              </p>
+              <span className="text-[10px] uppercase tracking-[0.35em] text-muted-foreground">Step 0{i + 1}</span>
+              <h3 className="mt-1 font-display text-2xl text-foreground">{s.title}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{s.desc}</p>
               {s.note && (
-                <p className="mt-3 border-l-2 border-accent/50 pl-3 text-xs italic leading-relaxed text-muted-foreground/90">
-                  {s.note}
-                </p>
+                <p className="mt-3 border-l-2 border-accent/50 pl-3 text-xs italic leading-relaxed text-muted-foreground/90">{s.note}</p>
               )}
             </li>
           ))}
         </ol>
       </div>
+
+      {/* Bottom fade back to background */}
+      <div className="absolute inset-x-0 bottom-0 h-32 pointer-events-none" style={{ background: "linear-gradient(to bottom, transparent, oklch(0.18 0.04 155))" }} />
     </section>
   );
 }
