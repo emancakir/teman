@@ -7,6 +7,7 @@ import { HowItWorks } from "@/components/teman/HowItWorks";
 import { UpcomingRides } from "@/components/teman/UpcomingRides";
 import { Crew } from "@/components/teman/Crew";
 import { Journey } from "@/components/teman/Journey";
+import { Gallery } from "@/components/teman/Gallery";
 import { Included } from "@/components/teman/Included";
 import { Footer } from "@/components/teman/Footer";
 import { WhatsAppButton } from "@/components/teman/WhatsAppButton";
@@ -42,6 +43,7 @@ function Index() {
         <UpcomingRides />
         <Crew />
         <Journey />
+        <Gallery />
         <Included />
       </main>
       <Footer />

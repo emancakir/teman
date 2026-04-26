@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import heroVideo from "@/assets/hero-video.mp4";
 import heroImg from "@/assets/hero-ride.jpg";
 import { ArrowRight } from "lucide-react";
 
@@ -9,13 +10,17 @@ const scrollTo = (href: string) => {
 export function Hero() {
   return (
     <section id="top" className="relative min-h-screen w-full overflow-hidden">
-      <img
-        src={heroImg}
-        alt="Group of motorcyclists riding through misty tropical mountain road at golden hour"
-        width={1920}
-        height={1280}
+      {/* Video background — falls back to static image */}
+      <video
+        autoPlay
+        muted
+        loop
+        playsInline
+        poster={heroImg}
         className="absolute inset-0 h-full w-full object-cover"
-      />
+      >
+        <source src={heroVideo} type="video/mp4" />
+      </video>
       {/* Layered green overlays — calm, not heavy */}
       <div
         className="absolute inset-0"

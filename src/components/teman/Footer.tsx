@@ -1,5 +1,6 @@
 import { Mail, Copy } from "lucide-react";
 import { toast } from "sonner";
+import krabiImg from "@/assets/gallery-krabi.jpg";
 
 const EMAIL = "temaninfo@pphgroup.com";
 
@@ -14,11 +15,18 @@ export function Footer() {
   };
 
   return (
-    <footer id="contact" className="scroll-mt-20 bg-background">
-      <div
-        id="about"
-        className="mx-auto max-w-5xl scroll-mt-20 px-6 py-24 md:px-10 md:py-32"
-      >
+    <footer id="contact" className="scroll-mt-20 relative overflow-hidden" style={{ background: "oklch(0.18 0.04 155)" }}>
+      {/* Krabi night boat background */}
+      <img
+        src={krabiImg}
+        alt="Traditional boat at night in Krabi"
+        loading="lazy"
+        className="absolute inset-0 h-full w-full object-cover opacity-[0.12]"
+      />
+      <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, oklch(0.18 0.04 155 / 0.9) 0%, oklch(0.18 0.04 155 / 0.97) 100%)" }} />
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-accent/30 to-transparent" />
+
+      <div id="about" className="relative mx-auto max-w-5xl scroll-mt-20 px-6 py-24 md:px-10 md:py-32">
         <div className="grid grid-cols-1 gap-12 md:grid-cols-12">
           <div className="md:col-span-7">
             <h2 className="font-display text-4xl leading-[1.05] text-balance text-foreground sm:text-5xl">
@@ -29,12 +37,13 @@ export function Footer() {
               cross into Southern Thailand than sit in traffic. We started with
               Betong — the place we know best — and we're not stopping there.
             </p>
+            <p className="mt-3 text-sm italic text-muted-foreground/70">
+              Krabi. Hat Yai. Satun. The roads keep going.
+            </p>
           </div>
 
           <div className="md:col-span-5">
-            <p className="text-[11px] uppercase tracking-[0.5em] text-accent">
-              Contact
-            </p>
+            <p className="text-[11px] uppercase tracking-[0.5em] text-accent">Contact</p>
             <div className="mt-4 flex items-center gap-3">
               <a
                 href={`mailto:${EMAIL}`}
@@ -58,9 +67,7 @@ export function Footer() {
         </div>
 
         <div className="mt-20 flex flex-col items-start justify-between gap-4 border-t border-border/60 pt-8 md:flex-row md:items-center">
-          <span className="font-display text-xl tracking-[0.3em] text-foreground">
-            TEMAN
-          </span>
+          <span className="font-display text-xl tracking-[0.3em] text-foreground">TEMAN</span>
           <p className="text-xs text-muted-foreground">
             © {new Date().getFullYear()} Teman · Ride Together. Explore Further.
           </p>

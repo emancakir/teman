@@ -1,3 +1,5 @@
+import sevenElevenNightImg from "@/assets/gallery-711-night.jpg";
+
 const items = [
   "Lead rider guidance",
   "Safety coordination & route planning",
@@ -8,15 +10,19 @@ const items = [
 export function Included() {
   return (
     <section className="relative overflow-hidden py-28 md:py-36" style={{ background: "oklch(0.12 0.022 155)" }}>
-      {/* Top accent rule */}
+      {/* Night 7-Eleven background */}
+      <img
+        src={sevenElevenNightImg}
+        alt="Late night 7-Eleven R&R stop in Southern Thailand"
+        loading="lazy"
+        className="absolute inset-0 h-full w-full object-cover opacity-[0.08]"
+      />
+      <div className="absolute inset-0" style={{ background: "linear-gradient(135deg, oklch(0.12 0.022 155) 40%, oklch(0.12 0.022 155 / 0.85) 100%)" }} />
+
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-accent/30 to-transparent" />
-
-      {/* Noise texture */}
       <div className="absolute inset-0 bg-noise opacity-25 pointer-events-none" />
-
-      {/* Ghost section number */}
       <span className="absolute right-4 top-8 font-display leading-none text-foreground/[0.03] select-none pointer-events-none" style={{ fontSize: "clamp(6rem, 18vw, 16rem)" }}>
-        06
+        08
       </span>
 
       <div className="relative mx-auto grid max-w-5xl grid-cols-1 gap-16 px-6 md:grid-cols-12 md:gap-12 md:px-10">
@@ -28,14 +34,14 @@ export function Included() {
           <h2 className="font-display text-4xl leading-[1.05] text-balance text-foreground sm:text-5xl">
             Built-in. <span className="italic">Not bolted on.</span>
           </h2>
+          <p className="mt-5 text-sm text-muted-foreground">
+            Every R&R stop, every border prep, every WhatsApp ping at 2am — that's what riding with Teman looks like.
+          </p>
         </div>
 
         <ul className="md:col-span-7 md:pt-2">
           {items.map((label) => (
-            <li
-              key={label}
-              className="flex items-baseline justify-between gap-6 border-b border-border/60 py-5 text-base text-foreground"
-            >
+            <li key={label} className="flex items-baseline justify-between gap-6 border-b border-border/60 py-5 text-base text-foreground">
               <span>{label}</span>
               <span className="h-px flex-1 translate-y-[-4px] bg-border/40" />
               <span className="text-xs uppercase tracking-[0.25em] text-accent">Included</span>
@@ -47,7 +53,6 @@ export function Included() {
         </ul>
       </div>
 
-      {/* Bottom fade to footer */}
       <div className="absolute inset-x-0 bottom-0 h-32 pointer-events-none" style={{ background: "linear-gradient(to bottom, transparent, oklch(0.18 0.04 155))" }} />
     </section>
   );
