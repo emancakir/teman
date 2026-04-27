@@ -65,7 +65,7 @@ export function Footer() {
             </p>
           </div>
         </div>
-
+ 
         <div className="mt-20 flex flex-col items-start justify-between gap-4 border-t border-border/60 pt-8 md:flex-row md:items-center">
           <span className="font-display text-xl tracking-[0.3em] text-foreground">TEMAN</span>
           <p className="text-xs text-muted-foreground">
