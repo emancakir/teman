@@ -1,12 +1,13 @@
 import journeyImg from "@/assets/journey-road.jpg";
 import sadaoImg from "@/assets/gallery-sadao.jpg";
 import shootingRangeImg from "@/assets/gallery-shooting-range.jpg";
+import hatyaiImg from "@/assets/gallery-hatyai.jpg";
 import sunsetImg from "@/assets/gallery-sunset.jpg";
 
 const timeline = [
   {
     day: "Day 1",
-    title: "KL → Sadao Border",
+    title: "KL to Betong Border",
     desc: "Long ride north. R&R stops along Route 4. Convoy crossing into Thailand via Sadao — the checkpoint every Malaysian rider knows.",
     img: sadaoImg,
     imgAlt: "The famous Sadao sticker store at the Thai border",
@@ -15,17 +16,27 @@ const timeline = [
   },
   {
     day: "Day 2",
-    title: "Betong Hotspots",
+    title: "Betong Hotspot and to Pattani",
     desc: "Sea of mist at dawn. Hidden waterfalls. Local food. And the Betong shooting range — a fully legal civilian range that most riders don't know about until they're standing in it.",
     img: shootingRangeImg,
     imgAlt: "Betong shooting range target — a hidden gem for riders",
     imgCaption: "Betong Shooting Range — yes, you can shoot here",
-    extra: "Ko Lanta ferry crossing added when the route extends south.",
+    extra: null,
   },
   {
     day: "Day 3",
+    title: "Discover Pattani",
+    desc: "Ride into Pattani — a coastal town with deep history, colourful fishing villages, and food that most riders never get to try. A slower day built for exploring.",
+    img: hatyaiImg,
+    imgAlt: "Southern Thailand street scene",
+    imgCaption: "Southern Thailand — off the usual route",
+    extra: null,
+  },
+  {
+    day: "Day 4",
     title: "Return Journey",
     desc: "Back to KL. We don't rush the last day. The best views are usually on the way home.",
+    // TODO: replace with new photo
     img: sunsetImg,
     imgAlt: "Golden sunset over the Andaman Sea",
     imgCaption: "Andaman coast — end of the road",
@@ -55,7 +66,7 @@ export function Journey() {
         <div className="mb-20 max-w-2xl">
           <div className="flex items-center gap-4 mb-6">
             <span className="h-px w-8 bg-accent/60 shrink-0" />
-            <p className="text-[11px] uppercase tracking-[0.5em] text-accent">The Betong Run</p>
+            <p className="text-[11px] uppercase tracking-[0.5em] text-accent">Betong JMS V3 Ride</p>
           </div>
           <h2 className="font-display text-4xl leading-[1.05] text-balance text-foreground sm:text-5xl md:text-6xl">
             Three days. <span className="italic">One road north.</span>

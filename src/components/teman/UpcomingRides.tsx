@@ -56,7 +56,10 @@ export function UpcomingRides() {
                   className={`group grid grid-cols-12 items-center gap-6 py-8 transition-colors hover:bg-card/30 md:py-10${!active ? " opacity-40" : ""}`}
                 >
                   <div className="col-span-12 md:col-span-4">
-                    <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">
+                    <p className="text-xs uppercase tracking-[0.3em] text-accent">
+                      {ride.name}
+                    </p>
+                    <p className="mt-1 text-xs uppercase tracking-[0.3em] text-muted-foreground">
                       {ride.duration} · {ride.route}
                     </p>
                     <h3 className="mt-2 font-display text-3xl text-foreground md:text-4xl">{ride.dates}</h3>
@@ -89,7 +92,7 @@ export function UpcomingRides() {
         )}
 
         <p className="mt-10 max-w-md text-sm italic text-muted-foreground">
-          Max 10 helmets per ride. We keep the crew small so the experience stays personal.
+          Slots are limited, first come first serve.
         </p>
       </div>
 

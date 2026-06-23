@@ -21,15 +21,11 @@ export function WhatIsTeman() {
             <p className="font-display text-3xl leading-[1.25] text-balance text-foreground sm:text-4xl md:text-5xl">
               Teman means friend.
             </p>
-            <p className="mt-8 text-sm leading-relaxed text-muted-foreground">
-              And that's exactly what we hope to be. Whether we're crossing into
-              Thailand or exploring roads closer to home in Malaysia, our goal is
-              simple: create rides where everyone feels welcome, comfortable, and
-              part of the group. No flags. No shouting through megaphones. No
-              rigid tour schedules. Just riders sharing roads, meals,
-              conversations, and memories together. Come for the ride. Stay for
-              the people.
-            </p>
+            <p className="mt-8 text-sm leading-relaxed text-muted-foreground">And that's exactly what we hope to be.</p>
+            <p className="mt-4 text-sm leading-relaxed text-muted-foreground">Whether we're crossing into Thailand or exploring roads closer to home in Malaysia, our goal is simple: create rides where everyone feels welcome, comfortable, and part of the group.</p>
+            <p className="mt-4 text-sm leading-relaxed text-muted-foreground">No flags. No shouting through megaphones. No rigid tour schedules.</p>
+            <p className="mt-4 text-sm leading-relaxed text-muted-foreground">Just riders sharing roads, meals, conversations, and memories together.</p>
+            <p className="mt-4 text-sm leading-relaxed text-muted-foreground">Come for the ride. Stay for the people.</p>
             <div className="mt-12 flex flex-col gap-4 text-sm uppercase tracking-[0.25em] text-muted-foreground sm:flex-row sm:items-center sm:gap-10">
               <span className="flex items-center gap-3">
                 <span className="h-px w-6 bg-accent/60" />Ride together

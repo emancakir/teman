@@ -32,14 +32,11 @@ export function Footer() {
             <h2 className="font-display text-4xl leading-[1.05] text-balance text-foreground sm:text-5xl">
               Your road. <span className="italic">Your people.</span>
             </h2>
-            <p className="mt-6 max-w-md text-base text-muted-foreground">
-              Teman Ride is built around one simple idea: Riding is better with
-              good company. We're not tour guides carrying flags and rushing
-              schedules. We're fellow riders who enjoy discovering places,
-              meeting people, and making memories together. We plan the route.
-              You enjoy the ride. Ride together. Arrive together. Remember it
-              forever.
-            </p>
+            <p className="mt-6 max-w-md text-base text-muted-foreground">Teman Ride is built around one simple idea:</p>
+            <p className="mt-4 max-w-md text-base text-muted-foreground">Riding is better with good company.</p>
+            <p className="mt-4 max-w-md text-base text-muted-foreground">We're not tour guides carrying flags and rushing schedules. We're fellow riders who enjoy discovering places, meeting people, and making memories together.</p>
+            <p className="mt-4 max-w-md text-base text-muted-foreground">We plan the route. You enjoy the ride.</p>
+            <p className="mt-4 max-w-md text-base text-muted-foreground">Ride together. Arrive together. Remember it forever.</p>
           </div>
 
           <div className="md:col-span-5">
