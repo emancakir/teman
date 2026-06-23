@@ -1,42 +1,12 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowUpRight } from "lucide-react";
-import { BookingModal, type Ride } from "./BookingModal";
-
-const rides: Ride[] = [
-  {
-    id: "betong-jms-v3-jun-2026",
-    name: "Betong JMS V3",
-    dates: "Jun 26–29, 2026",
-    duration: "4D / 3N",
-    slotsLeft: 2,
-    totalSlots: 4,
-    tagline: "Discover the nice nature of Betong, Yala and Pattani.",
-  },
-  {
-    id: "chumphon-jul-2026",
-    name: "JMS to Chumphon Expedition",
-    dates: "Jul 24–27, 2026",
-    duration: "4D / 3N",
-    slotsLeft: 2,
-    totalSlots: 5,
-    tagline: "From mountain bends to ocean winds.",
-    disabled: true,
-  },
-  {
-    id: "bangkok-sep-2026",
-    name: "Bangkok Here We Come – JMS!",
-    dates: "Sep 18–21, 2026",
-    duration: "4D / 3N",
-    slotsLeft: 2,
-    totalSlots: 5,
-    tagline: "One destination, a thousand memories.",
-    disabled: true,
-  },
-];
+import { BookingModal } from "./BookingModal";
+import { useRides, type RideData } from "@/hooks/useRides";
 
 export function UpcomingRides() {
-  const [selectedRide, setSelectedRide] = useState<Ride | null>(null);
+  const [selectedRide, setSelectedRide] = useState<RideData | null>(null);
+  const { rides, loading, error } = useRides();
 
   return (
     <section id="rides" className="scroll-mt-20 relative overflow-hidden py-28 md:py-40" style={{ background: "oklch(0.18 0.04 155)" }}>
@@ -62,44 +32,61 @@ export function UpcomingRides() {
           </h2>
         </div>
 
-        <ul className="divide-y divide-border/60 border-y border-border/60">
-          {rides.map((ride) => {
-            const sold = ride.slotsLeft === 0 || !!ride.disabled;
-            return (
-              <li
-                key={ride.id}
-                className="group grid grid-cols-12 items-center gap-6 py-8 transition-colors hover:bg-card/30 md:py-10"
-              >
-                <div className="col-span-12 md:col-span-4">
-                  <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">
-                    {ride.duration} · KL → Betong
-                  </p>
-                  <h3 className="mt-2 font-display text-3xl text-foreground md:text-4xl">{ride.dates}</h3>
-                </div>
+        {loading && (
+          <p className="text-sm text-muted-foreground">Loading rides…</p>
+        )}
 
-                <div className="col-span-7 md:col-span-5">
-                  <p className="text-sm italic text-muted-foreground md:text-base">{ride.tagline}</p>
-                  <p className="mt-2 text-xs uppercase tracking-[0.25em] text-accent/90">
-                    {sold ? "Fully booked" : `${ride.slotsLeft} of ${ride.totalSlots} helmets left`}
-                  </p>
-                </div>
+        {error && (
+          <p className="text-sm text-destructive">{error}</p>
+        )}
 
-                <div className="col-span-5 flex justify-end md:col-span-3">
-                  <Button
-                    variant={sold ? "outline" : "brand"}
-                    size="lg"
-                    disabled={sold}
-                    onClick={() => setSelectedRide(ride)}
-                    className="group/btn"
-                  >
-                    {sold ? "Waitlist" : "Request"}
-                    <ArrowUpRight className="ml-1 h-4 w-4 transition-transform group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5" />
-                  </Button>
-                </div>
-              </li>
-            );
-          })}
-        </ul>
+        {!loading && !error && (
+          <ul className="divide-y divide-border/60 border-y border-border/60">
+            {rides.map((ride) => {
+              const active = ride.enabled && ride.slotsLeft > 0;
+              const statusLabel = ride.slotsLeft === 0
+                ? "FULLY BOOKED"
+                : !ride.enabled
+                ? "COMING SOON"
+                : `${ride.slotsLeft} of ${ride.totalSlots} helmets left`;
+
+              return (
+                <li
+                  key={ride.id}
+                  className={`group grid grid-cols-12 items-center gap-6 py-8 transition-colors hover:bg-card/30 md:py-10${!active ? " opacity-40" : ""}`}
+                >
+                  <div className="col-span-12 md:col-span-4">
+                    <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">
+                      {ride.duration} · {ride.route}
+                    </p>
+                    <h3 className="mt-2 font-display text-3xl text-foreground md:text-4xl">{ride.dates}</h3>
+                  </div>
+
+                  <div className="col-span-7 md:col-span-5">
+                    <p className="text-sm italic text-muted-foreground md:text-base">{ride.tagline}</p>
+                    <p className="mt-2 text-xs uppercase tracking-[0.25em] text-accent/90">
+                      {statusLabel}
+                    </p>
+                  </div>
+
+                  {active && (
+                    <div className="col-span-5 flex justify-end md:col-span-3">
+                      <Button
+                        variant="brand"
+                        size="lg"
+                        onClick={() => setSelectedRide(ride)}
+                        className="group/btn"
+                      >
+                        Request
+                        <ArrowUpRight className="ml-1 h-4 w-4 transition-transform group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5" />
+                      </Button>
+                    </div>
+                  )}
+                </li>
+              );
+            })}
+          </ul>
+        )}
 
         <p className="mt-10 max-w-md text-sm italic text-muted-foreground">
           Max 10 helmets per ride. We keep the crew small so the experience stays personal.
