@@ -50,12 +50,16 @@ export function BookingModal({ ride, onClose }: Props) {
   const [submitting, setSubmitting] = useState(false);
   const [succeeded, setSucceeded] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [experience, setExperience] = useState("");
+  const [agreed, setAgreed] = useState(false);
 
   useEffect(() => {
     if (!ride) {
       setSubmitting(false);
       setSucceeded(false);
       setError(null);
+      setExperience("");
+      setAgreed(false);
     }
   }, [ride]);
 
@@ -72,8 +76,8 @@ export function BookingModal({ ride, onClose }: Props) {
       email: (form.elements.namedItem("email") as HTMLInputElement).value,
       whatsapp: (form.elements.namedItem("whatsapp") as HTMLInputElement).value,
       bike: (form.elements.namedItem("bike") as HTMLInputElement).value,
-      experience: (form.elements.namedItem("experience") as HTMLSelectElement).value,
-      agreed: (form.elements.namedItem("agree") as HTMLInputElement).checked,
+      experience,
+      agreed,
     };
 
     const { error: insertError } = await supabase.from("bookings").insert(payload);
@@ -138,7 +142,7 @@ export function BookingModal({ ride, onClose }: Props) {
                 <Label htmlFor="experience" className="text-[11px] uppercase tracking-[0.25em] text-muted-foreground">
                   Experience
                 </Label>
-                <Select name="experience">
+                <Select name="experience" value={experience} onValueChange={setExperience}>
                   <SelectTrigger id="experience" className="h-11 border-border/60 bg-transparent">
                     <SelectValue placeholder="Select your level" />
                   </SelectTrigger>
@@ -151,7 +155,7 @@ export function BookingModal({ ride, onClose }: Props) {
               </div>
 
               <div className="flex items-start gap-3 pt-2">
-                <Checkbox id="agree" name="agree" value="yes" className="mt-0.5" />
+                <Checkbox id="agree" name="agree" value="yes" checked={agreed} onCheckedChange={(checked) => setAgreed(checked === true)} className="mt-0.5" />
                 <Label htmlFor="agree" className="text-xs leading-relaxed text-muted-foreground">
                   I understand routes are flexible based on group consensus,
                   weather, and road conditions. I ride at my own risk and
