@@ -1,5 +1,5 @@
-import { useEffect } from "react";
-import { useForm, ValidationError } from "@formspree/react";
+import { useEffect, useState } from "react";
+import { supabase } from "@/lib/supabase";
 import {
   Dialog,
   DialogContent,
@@ -35,19 +35,63 @@ interface Props {
   onClose: () => void;
 }
 
-export function BookingModal({ ride, onClose }: Props) {
-  const [state, handleSubmit, reset] = useForm("mgorbwgn");
+type BookingPayload = {
+  ride_name: string;
+  ride_dates: string;
+  name: string;
+  email: string;
+  whatsapp: string;
+  bike: string;
+  experience: string;
+  agreed: boolean;
+};
 
-  // Reset form state when modal closes
+export function BookingModal({ ride, onClose }: Props) {
+  const [submitting, setSubmitting] = useState(false);
+  const [succeeded, setSucceeded] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
   useEffect(() => {
-    if (!ride) reset();
-  }, [ride, reset]);
+    if (!ride) {
+      setSubmitting(false);
+      setSucceeded(false);
+      setError(null);
+    }
+  }, [ride]);
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setSubmitting(true);
+    setError(null);
+
+    const form = e.currentTarget;
+    const payload: BookingPayload = {
+      ride_name: ride?.name ?? "",
+      ride_dates: ride?.dates ?? "",
+      name: (form.elements.namedItem("name") as HTMLInputElement).value,
+      email: (form.elements.namedItem("email") as HTMLInputElement).value,
+      whatsapp: (form.elements.namedItem("whatsapp") as HTMLInputElement).value,
+      bike: (form.elements.namedItem("bike") as HTMLInputElement).value,
+      experience: (form.elements.namedItem("experience") as HTMLSelectElement).value,
+      agreed: (form.elements.namedItem("agree") as HTMLInputElement).checked,
+    };
+
+    const { error: insertError } = await supabase.from("bookings").insert(payload);
+
+    if (insertError) {
+      setError(insertError.message);
+      setSubmitting(false);
+    } else {
+      setSucceeded(true);
+      setSubmitting(false);
+    }
+  }
 
   return (
     <Dialog open={!!ride} onOpenChange={(o) => !o && onClose()}>
       <DialogContent className="max-h-[90vh] overflow-y-auto border-border/60 bg-background sm:max-w-md">
 
-        {state.succeeded ? (
+        {succeeded ? (
           // ── Success state ──
           <div className="flex flex-col items-center gap-5 py-8 text-center">
             <div className="flex h-16 w-16 items-center justify-center rounded-full border border-accent/40 bg-card">
@@ -64,6 +108,7 @@ export function BookingModal({ ride, onClose }: Props) {
               Close
             </Button>
           </div>
+
         ) : (
           // ── Form state ──
           <>
@@ -85,16 +130,9 @@ export function BookingModal({ ride, onClose }: Props) {
               <input type="hidden" name="ride_dates" value={ride ? ride.dates : ""} />
 
               <Field id="name" label="Full name" name="name" required />
-              <ValidationError field="name" errors={state.errors} className="text-xs text-destructive" />
-
               <Field id="email" label="Email" name="email" type="email" required />
-              <ValidationError field="email" errors={state.errors} className="text-xs text-destructive" />
-
               <Field id="whatsapp" label="WhatsApp" name="whatsapp" placeholder="+60 12 345 6789" required />
-              <ValidationError field="whatsapp" errors={state.errors} className="text-xs text-destructive" />
-
               <Field id="bike" label="Motorcycle model" name="bike" placeholder="e.g. Yamaha R15, 150cc" required />
-              <ValidationError field="bike" errors={state.errors} className="text-xs text-destructive" />
 
               <div className="space-y-2">
                 <Label htmlFor="experience" className="text-[11px] uppercase tracking-[0.25em] text-muted-foreground">
@@ -110,7 +148,6 @@ export function BookingModal({ ride, onClose }: Props) {
                     <SelectItem value="Veteran">Veteran</SelectItem>
                   </SelectContent>
                 </Select>
-                <ValidationError field="experience" errors={state.errors} className="text-xs text-destructive" />
               </div>
 
               <div className="flex items-start gap-3 pt-2">
@@ -122,17 +159,18 @@ export function BookingModal({ ride, onClose }: Props) {
                 </Label>
               </div>
 
-              {/* Global form errors */}
-              <ValidationError errors={state.errors} className="text-xs text-destructive" />
+              {error && (
+                <p className="text-xs text-destructive">{error}</p>
+              )}
 
               <Button
                 type="submit"
                 variant="brand"
                 size="lg"
                 className="w-full"
-                disabled={state.submitting}
+                disabled={submitting}
               >
-                {state.submitting ? "Sending…" : "Send Enquiry"}
+                {submitting ? "Sending…" : "Send Enquiry"}
               </Button>
             </form>
           </>
