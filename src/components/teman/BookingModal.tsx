@@ -131,8 +131,8 @@ export function BookingModal({ ride, onClose }: Props) {
 
               <Field id="name" label="Full name" name="name" required />
               <Field id="email" label="Email" name="email" type="email" required />
-              <Field id="whatsapp" label="WhatsApp" name="whatsapp" placeholder="+60 12 345 6789" required />
-              <Field id="bike" label="Motorcycle model" name="bike" placeholder="e.g. Yamaha R15, 150cc" required />
+              <Field id="whatsapp" label="Phone No. (able to receive WhatsApp)" name="whatsapp" placeholder="+60 12 345 6789" required />
+              <Field id="bike" label="Motorcycle model" name="bike" placeholder="e.g. Versys 250, Y15" required />
 
               <div className="space-y-2">
                 <Label htmlFor="experience" className="text-[11px] uppercase tracking-[0.25em] text-muted-foreground">
@@ -143,9 +143,9 @@ export function BookingModal({ ride, onClose }: Props) {
                     <SelectValue placeholder="Select your level" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="Intermediate">Intermediate</SelectItem>
-                    <SelectItem value="Advanced">Advanced</SelectItem>
-                    <SelectItem value="Veteran">Veteran</SelectItem>
+                    <SelectItem value="Starting (0 to 1 year)">Starting (0 to 1 year)</SelectItem>
+                    <SelectItem value="Beginner (1 to 3 years)">Beginner (1 to 3 years)</SelectItem>
+                    <SelectItem value="Advance (3 years+)">Advance (3 years+)</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
