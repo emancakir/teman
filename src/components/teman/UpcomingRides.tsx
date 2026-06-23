@@ -5,31 +5,33 @@ import { BookingModal, type Ride } from "./BookingModal";
 
 const rides: Ride[] = [
   {
-    id: "betong-nov-2026",
-    name: "Betong Escape",
-    dates: "Nov 24–27, 2026",
+    id: "betong-jms-v3-jun-2026",
+    name: "Betong JMS V3",
+    dates: "Jun 26–29, 2026",
     duration: "4D / 3N",
-    slotsLeft: 4,
-    totalSlots: 10,
-    tagline: "Misty mountains, hidden waterfalls.",
+    slotsLeft: 2,
+    totalSlots: 4,
+    tagline: "Discover the nice nature of Betong, Yala and Pattani.",
   },
   {
-    id: "betong-jan-2027",
-    name: "Betong Escape",
-    dates: "Jan 19–22, 2027",
+    id: "chumphon-jul-2026",
+    name: "JMS to Chumphon Expedition",
+    dates: "Jul 24–27, 2026",
     duration: "4D / 3N",
-    slotsLeft: 8,
-    totalSlots: 10,
-    tagline: "Cool season convoy. Empty roads.",
+    slotsLeft: 2,
+    totalSlots: 5,
+    tagline: "From mountain bends to ocean winds.",
+    disabled: true,
   },
   {
-    id: "betong-mar-2027",
-    name: "Betong Escape",
-    dates: "Mar 16–19, 2027",
+    id: "bangkok-sep-2026",
+    name: "Bangkok Here We Come – JMS!",
+    dates: "Sep 18–21, 2026",
     duration: "4D / 3N",
-    slotsLeft: 10,
-    totalSlots: 10,
-    tagline: "Pre-monsoon push. Fresh asphalt.",
+    slotsLeft: 2,
+    totalSlots: 5,
+    tagline: "One destination, a thousand memories.",
+    disabled: true,
   },
 ];
 
@@ -62,7 +64,7 @@ export function UpcomingRides() {
 
         <ul className="divide-y divide-border/60 border-y border-border/60">
           {rides.map((ride) => {
-            const sold = ride.slotsLeft === 0;
+            const sold = ride.slotsLeft === 0 || !!ride.disabled;
             return (
               <li
                 key={ride.id}

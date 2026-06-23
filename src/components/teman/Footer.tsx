@@ -30,15 +30,15 @@ export function Footer() {
         <div className="grid grid-cols-1 gap-12 md:grid-cols-12">
           <div className="md:col-span-7">
             <h2 className="font-display text-4xl leading-[1.05] text-balance text-foreground sm:text-5xl">
-              A brand under <span className="italic">PPH Group.</span>
+              Your road. <span className="italic">Your people.</span>
             </h2>
             <p className="mt-6 max-w-md text-base text-muted-foreground">
-              Built by riders, for riders. A quiet circle for those who'd rather
-              cross into Southern Thailand than sit in traffic. We started with
-              Betong — the place we know best — and we're not stopping there.
-            </p>
-            <p className="mt-3 text-sm italic text-muted-foreground/70">
-              Krabi. Hat Yai. Satun. The roads keep going.
+              Teman Ride is built around one simple idea: Riding is better with
+              good company. We're not tour guides carrying flags and rushing
+              schedules. We're fellow riders who enjoy discovering places,
+              meeting people, and making memories together. We plan the route.
+              You enjoy the ride. Ride together. Arrive together. Remember it
+              forever.
             </p>
           </div>
 

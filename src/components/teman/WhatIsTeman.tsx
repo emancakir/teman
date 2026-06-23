@@ -19,16 +19,16 @@ export function WhatIsTeman() {
               <p className="text-[11px] uppercase tracking-[0.5em] text-accent">What is Teman</p>
             </div>
             <p className="font-display text-3xl leading-[1.25] text-balance text-foreground sm:text-4xl md:text-5xl">
-              Teman is not a tour agency. It's a riding crew —{" "}
-              <span className="italic text-foreground/70">
-                a small circle of motorcyclists who cross into Southern Thailand
-                together, discover roads most riders never find, and move at the
-                pace of the group.
-              </span>
+              Teman means friend.
             </p>
             <p className="mt-8 text-sm leading-relaxed text-muted-foreground">
-              We started with Betong — the crossing we know best. But Southern
-              Thailand is wide, and we're built to go wherever the road leads.
+              And that's exactly what we hope to be. Whether we're crossing into
+              Thailand or exploring roads closer to home in Malaysia, our goal is
+              simple: create rides where everyone feels welcome, comfortable, and
+              part of the group. No flags. No shouting through megaphones. No
+              rigid tour schedules. Just riders sharing roads, meals,
+              conversations, and memories together. Come for the ride. Stay for
+              the people.
             </p>
             <div className="mt-12 flex flex-col gap-4 text-sm uppercase tracking-[0.25em] text-muted-foreground sm:flex-row sm:items-center sm:gap-10">
               <span className="flex items-center gap-3">

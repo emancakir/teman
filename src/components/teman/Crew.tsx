@@ -2,8 +2,18 @@ import aiman from "@/assets/rider-aiman.jpg";
 import amir from "@/assets/rider-amir.jpg";
 
 const crew = [
-  { name: "Aiman", role: "TemanLead", img: aiman, line: "12+ years · countless Betong crossings" },
-  { name: "Amir", role: "Teman Co-Lead", img: amir, line: "8+ years · technical sweep & roadside fixes" },
+  {
+    name: "Aiman",
+    role: "LEAD RIDER / MARSHALL",
+    img: aiman, // TODO: update profile picture
+    line: "An explorer at heart. Having ridden Southern Thailand on everything from high-displacement motorcycles to small scooters, Aiman believes every road has a story worth discovering.",
+  },
+  {
+    name: "Amir",
+    role: "LEAD RIDER / MARSHALL",
+    img: amir, // TODO: update profile picture
+    line: "The team's technical backbone. Backed by years of mechanical experience, including industrial superbike track preparation, Amir ensures riders can focus on the journey while he handles the details.",
+  },
 ];
 
 export function Crew() {

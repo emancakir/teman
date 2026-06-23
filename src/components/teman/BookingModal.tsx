@@ -28,6 +28,7 @@ export type Ride = {
   slotsLeft: number;
   totalSlots: number;
   tagline: string;
+  disabled?: boolean;
 };
 
 interface Props {
